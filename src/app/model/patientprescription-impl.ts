@@ -1,4 +1,9 @@
+import { createProxy } from "./patientprescription";
+
 export class PatientprescriptionImpl {
+    // constructor(){
+    //     return createProxy2(this);
+    // }
     prescriptionId: number;
     clientGuid: number;
     drugName: string;

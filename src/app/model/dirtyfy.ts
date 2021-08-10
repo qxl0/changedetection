@@ -1,8 +1,12 @@
+import { utils } from "protractor";
+
+// @dynamic
  export function dirtify(obj) {
     let isDirty = false;
-    return new Proxy(obj,{
+    var validator = {
         get : function(target, property, receiver) {
             if (property==='isDirty') return isDirty;
+            if (property === 'isProxy') return true;
             if (property==='clearDirt') {
                 // var self=this;
                 var f = function() {
@@ -10,9 +14,10 @@
                 };
                 return f.bind(target);
             } 
-            // else if (typeof target[property] === 'object' && target[property] !== null) {
-            //     return new Proxy(target[property], validator);
-            // }
+            const prop = target[property];
+        if (typeof prop === 'object' && prop && !prop.isProxy) {
+                target[property] = new Proxy(prop, validator);
+            }
 
             return target[property];
         },
@@ -32,7 +37,9 @@
             delete target[property];
             return true;
         }
-    });
+    }
+
+    return new Proxy(obj, validator);
 }
 
 //module.exports = dirtify;

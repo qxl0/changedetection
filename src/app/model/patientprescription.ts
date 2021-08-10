@@ -13,6 +13,30 @@ export function createProxy<T>(value: T): T & { isDirty: boolean,clearDirt(): vo
     return dirtify(value);
 }
 
+export function createProxy2<T>(value: T): T & { isDirty: boolean,clearDirt(): void } {
+    return dirtify(value);
+}
 
 
 
+// export function first() {
+//   console.log("first(): factory evaluated");
+//   return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+//     console.log("first(): called");
+//   };
+// }
+
+// export function Talks<T extends {new(...args:any[]):{}}>(constructor:T) {
+//     return class extends constructor {
+//         sayHello(): void {
+//             console.log('Hello');
+//         }
+//     }
+// }
+// export function addisDity<T extends {new(...args:any[]):{}}>(constructor:T) {
+//     return class extends constructor {
+//         createProxy<T>(value: T): T & { isDirty: boolean,clearDirt(): void } {
+//             return dirtify(value);
+//         }
+//     }
+// }
